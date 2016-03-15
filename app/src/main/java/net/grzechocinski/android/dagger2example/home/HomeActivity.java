@@ -3,8 +3,9 @@ package net.grzechocinski.android.dagger2example.home;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import java.util.List;
 import javax.inject.Inject;
 import net.grzechocinski.android.dagger2example.D2EApplication;
@@ -23,16 +24,16 @@ public class HomeActivity extends BaseActivity {
     @Inject
     Twitter twitter;
 
-    @InjectView(R.id.d2e_id_tv_pref)
+    @Bind(R.id.d2e_id_tv_pref)
     TextView preferenceValueTextView;
 
-    @InjectView(R.id.d2e_id_tv_util)
+    @Bind(R.id.d2e_id_tv_util)
     TextView utilOutputTextView;
 
-    @InjectView(R.id.d2e_id_tv_network_state)
+    @Bind(R.id.d2e_id_tv_network_state)
     TextView networkStateTextView;
 
-    @InjectView(R.id.d2e_id_btn_load_preference)
+    @Bind(R.id.d2e_id_btn_load_preference)
     Button button;
 
     private D2ECollectionUtils d2EStringUtils;
@@ -42,7 +43,7 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         //Inject to non-private fields
         D2EApplication.component(this).inject(this);
