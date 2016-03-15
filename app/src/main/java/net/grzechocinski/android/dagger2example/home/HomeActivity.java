@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import java.util.List;
 import javax.inject.Inject;
 import net.grzechocinski.android.dagger2example.D2EApplication;
@@ -36,6 +38,13 @@ public class HomeActivity extends BaseActivity {
     @Bind(R.id.d2e_id_btn_load_preference)
     Button button;
 
+    @OnClick(R.id.d2e_id_btn_load_preference)
+    void buttonClicked () {
+        sharedPreferences.edit().putString(PREF_KEY_SAMPLE, "foo").apply();
+        preferenceValueTextView.setText(sharedPreferences.getString(PREF_KEY_SAMPLE, "bar"));
+        twitter.tweet("Hey, I clicked button!");
+    }
+
     private D2ECollectionUtils d2EStringUtils;
 
     @Override
@@ -50,13 +59,6 @@ public class HomeActivity extends BaseActivity {
 
         //Inject to private fields or local variables
         d2EStringUtils = D2EApplication.component(this).getD2EStringUtils();
-
-        //Lambda usage example
-        button.setOnClickListener(v -> {
-            sharedPreferences.edit().putString(PREF_KEY_SAMPLE, "foo").apply();
-            preferenceValueTextView.setText(sharedPreferences.getString(PREF_KEY_SAMPLE, "bar"));
-            twitter.tweet("Hey, I clicked button!");
-        });
 
         //Method reference example
         List<String> sortedAscending = d2EStringUtils.toSortedList(String::compareTo, "zombie", "dog", "animal");
